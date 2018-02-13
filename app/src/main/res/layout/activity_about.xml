@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,48 +10,84 @@
 
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="300sp"
-        android:layout_height="75sp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/textView3"
+        android:layout_alignStart="@+id/textView2"
+        android:background="@color/colorAccent"
         android:text="Programmer: Papageorgiou Akrivi"
-        android:textSize="26sp"
-        android:textStyle="bold|italic"
         android:textColor="@color/ic_launcher_background"
-        android:background="@color/colorAccent"/>
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="113dp" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="300sp"
         android:layout_height="55dp"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="27dp"
         android:background="@color/colorAccent"
         android:text="Application: Words Quiz"
         android:textColor="@color/ic_launcher_background"
         android:textSize="26sp"
         android:textStyle="bold|italic"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="84dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="346dp" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="300sp"
-        android:layout_height="75sp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
         android:background="@color/colorAccent"
         android:text="For the lesson Human And Computer Interaction"
         android:textColor="@color/ic_launcher_background"
-        android:textSize="26sp"
+        android:textSize="18sp"
         android:textStyle="bold|italic"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="133dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="401dp" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="300sp"
-        android:layout_height="75sp"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginBottom="13dp"
         android:background="@color/colorAccent"
         android:text="2017-2018.All rights reserved."
         android:textColor="@color/ic_launcher_background"
-        android:textSize="26sp"
+        android:textSize="18sp"
         android:textStyle="bold|italic"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="218dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="476dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="81dp"
+        app:srcCompat="@drawable/quiz_icon" />
+
+
+</RelativeLayout>
