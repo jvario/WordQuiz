@@ -5,24 +5,32 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
-public class AboutActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity {
     private static final String TAG = "TEST";
     private boolean phoneDevice = true;
+    private Animation shakeAnimation;
+    private TextView questionNumberTextView;
+    private static int counter=1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_play);
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -34,7 +42,37 @@ public class AboutActivity extends AppCompatActivity {
             setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+
+
+        shakeAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.incorrect_shake);
+        shakeAnimation.setRepeatCount(3);
+        Log.i(TAG, "onCreate: ");
+
+        questionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
+        questionNumberTextView.setText("Ερώτηση 1 από 10");
+        Intent i = getIntent();
+        final String q_number = i.getStringExtra("number");
+        if (counter>1) {
+
+            questionNumberTextView.setText(q_number);
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @Override
@@ -42,7 +80,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onStart();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("About");
+        toolbar.setTitle("Play");
         setSupportActionBar(toolbar);
         Intent i=getIntent();
         Log.i(TAG, "onStart: ");
@@ -65,6 +103,70 @@ public class AboutActivity extends AppCompatActivity {
             return false;
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //ToolBar
@@ -107,7 +209,10 @@ public class AboutActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
+            case R.id.about_menu:
+                Intent a=new Intent(this,AboutActivity.class); //some code here
+                startActivity(a);
+                return true;
             case R.id.exit:
                 exitdialog();
                 return true;
@@ -121,5 +226,5 @@ public class AboutActivity extends AppCompatActivity {
         }
 
     }
-    }
 
+}

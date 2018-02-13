@@ -44,7 +44,7 @@ public class HelpActivity extends AppCompatActivity {
         super.onStart();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("About");
+        toolbar.setTitle("Help");
         setSupportActionBar(toolbar);
         Intent i=getIntent();
         Log.i(TAG, "onStart: ");
@@ -115,10 +115,6 @@ public class HelpActivity extends AppCompatActivity {
                 return true;
             case R.id.exit:
                 exitdialog();
-                return true;
-            case R.id.help:
-                Intent b=new Intent(this,HelpActivity.class); //some code here
-                startActivity(b);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
