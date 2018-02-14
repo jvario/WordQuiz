@@ -35,14 +35,7 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
     }
-
-
-
-
-
-
 
 
     @Override
@@ -55,13 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i=getIntent();
         Log.i(TAG, "onStart: ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
-
-
-
-
 
 
     @Override
@@ -81,13 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     //ToolBar
-
-
-
-
     private void open(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Do you really want to exit?");
@@ -113,15 +94,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     @Override
     public boolean onSupportNavigateUp() {              //Back Button
         onBackPressed();
         return true;
     }
-
 
 
     private void exitdialog(){
@@ -131,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
-
             case R.id.about_menu:
                 Intent a=new Intent(this,AboutActivity.class); //some code here
                 startActivity(a);
@@ -144,21 +119,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent b=new Intent(this,HelpActivity.class); //some code here
                 startActivity(b);
                 return true;
-
-
-
-
             default:
                 return super.onOptionsItemSelected(item);
 
-
         }
 
-
     }
-
-
-
 
 
 }

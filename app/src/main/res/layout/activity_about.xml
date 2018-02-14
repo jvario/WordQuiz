@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vivi.wordsquiz.AboutActivity">
+    tools:context="com.example.vivi.wordsquiz.AboutActivity"
+    android:background="@color/colorAccent">
+
+
+    <TextView
+        android:layout_width="300sp"
+        android:layout_height="75sp"
+        android:text="Programmer: Papageorgiou Akrivi"
+        android:textSize="26sp"
+        android:textStyle="bold|italic"
+        android:textColor="@color/ic_launcher_background"
+        android:background="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="300sp"
+        android:layout_height="55dp"
+        android:background="@color/colorAccent"
+        android:text="Application: Words Quiz"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="26sp"
+        android:textStyle="bold|italic"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="84dp" />
+
+    <TextView
+        android:layout_width="300sp"
+        android:layout_height="75sp"
+        android:background="@color/colorAccent"
+        android:text="For the lesson Human And Computer Interaction"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="26sp"
+        android:textStyle="bold|italic"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="133dp" />
+
+    <TextView
+        android:layout_width="300sp"
+        android:layout_height="75sp"
+        android:background="@color/colorAccent"
+        android:text="2017-2018.All rights reserved."
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="26sp"
+        android:textStyle="bold|italic"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="218dp" />
 
 </android.support.constraint.ConstraintLayout>
