@@ -16,14 +16,17 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <TextView
-        android:text="@string/question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp"
-        android:textStyle="normal|bold|italic"
         android:id="@+id/questionNumberTextView"
-        android:textColor="@android:color/black" />
+        android:layout_width="500dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtview1"
+        android:gravity="center"
+        android:text="@string/question"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="normal|bold|italic" />
     <Button
         android:id="@+id/check_btn"
 
@@ -41,6 +44,48 @@
         android:text="Submit"
         android:textColor="#47F3FF"
         android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/wordTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionNumberTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:text=""
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/txtview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:text="Guess the Word:"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Write_EditText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/check_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:ems="10"
+        android:hint="Εισαγωγή Λέξης "
+        android:inputType="text"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textColorHighlight="@android:color/holo_blue_dark"
+        android:textColorHint="?attr/actionMenuTextColor"
+        android:textColorLink="@android:color/holo_blue_dark"
+        android:textCursorDrawable="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:textStyle="normal|italic" />
 
 
 </RelativeLayout>

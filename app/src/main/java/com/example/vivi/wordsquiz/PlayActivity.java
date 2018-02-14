@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,24 +14,116 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
     private static final String TAG = "TEST";
     private boolean phoneDevice = true;
     private Animation shakeAnimation;
-    private TextView questionNumberTextView;
-    private static int counter=1;
-
+    private TextView questionNumberTextView,wordTxtView,Write_EditText;
+    private Button check_btn;
+    private static int counter = 1;
+    private static int tries=0;
+    private Handler handler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        loadActivity();
+    }
+
+
+
+
+
+
+
+
+
+    private  void loadActivity() {
+        wordTxtView = (TextView) findViewById(R.id.wordTxtView);
+        questionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
+        Write_EditText = (EditText) findViewById(R.id.Write_EditText);
+        check_btn = (Button) findViewById(R.id.check_btn);
+
+
+
+
+        shakeAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.incorrect_shake);
+        shakeAnimation.setRepeatCount(3);
+        Log.i(TAG, "onCreate: ");
+
+
+        questionNumberTextView.setText("Ερώτηση 1 από 10");
+        Intent i = getIntent();
+        final String q_number = i.getStringExtra("number");
+        if (counter > 1) {
+
+            questionNumberTextView.setText(q_number);
+        }
+
+        final StringBuilder sb1 = new StringBuilder("cat");
+        final StringBuilder sb = new StringBuilder("cat");
+        shuffle(sb);
+        wordTxtView.setText(sb);
+
+
+        if (Write_EditText.getText().toString().trim().length() == 0) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Empty Space!!!", Toast.LENGTH_SHORT);
+            Log.i(TAG, "loadActivity: ");
+        }
+
+
+        check_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                final String answer = Write_EditText.getText().toString();
+                if (sb1.equals(answer)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    handler.postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    loadnext();
+
+                                }
+                            }, 1000);
+                    Log.i(TAG, "onClick: ");
+
+                } else if (Write_EditText.getText().toString().length() == 0) {
+                    Write_EditText.setError("Required");
+                } else {
+                    check_btn.startAnimation(shakeAnimation);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Προσπάθησε ξανά", Toast.LENGTH_SHORT);
+                    toast.show();
+                    tries++;
+                    Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+                    i.putExtra("tries", tries);
+                    Log.i(TAG, "onClick: ");
+
+                }
+
+
+            }
+        });
+
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -43,127 +136,106 @@ public class PlayActivity extends AppCompatActivity {
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
+    else {
+        Toast toast = Toast.makeText(getApplicationContext(), "Γίνετε Επανεκκίνηση του quiz...", Toast.LENGTH_SHORT);
+        toast.show();
+        loadActivity();
+    }
+    }
 
 
-        shakeAnimation = AnimationUtils.loadAnimation(this,
-                R.anim.incorrect_shake);
-        shakeAnimation.setRepeatCount(3);
-        Log.i(TAG, "onCreate: ");
 
-        questionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
-        questionNumberTextView.setText("Ερώτηση 1 από 10");
-        Intent i = getIntent();
-        final String q_number = i.getStringExtra("number");
-        if (counter>1) {
 
-            questionNumberTextView.setText(q_number);
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void shuffle(StringBuilder sb) {
+        Random rand = new Random();
+        for (int i = sb.length() - 1; i > 1; i--) {
+            int swapWith = rand.nextInt(i);
+            char tmp = sb.charAt(swapWith);
+            sb.setCharAt(swapWith, sb.charAt(i));
+            sb.setCharAt(i, tmp);
         }
     }
 
 
+        @Override
+        protected void onStart () {
+            super.onStart();
+
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle("Play");
+            setSupportActionBar(toolbar);
+            Intent i = getIntent();
+            Log.i(TAG, "onStart: ");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
+            Display display = ((WindowManager)
+                    getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+            Point screenSize = new Point();
+            Log.i(TAG, "onCreateOptionsMenu: ");
+            display.getRealSize(screenSize);
+            if (screenSize.x < screenSize.y) // x είναι το πλάτος,  y είναι το ύψος
+            {
+                getMenuInflater().inflate(R.menu.main_menu, menu); // διογκώνει το μενού
+                return true;
+            } else
+                return false;
+
+        }
 
 
 
 
 
 
+    private void loadnext() {
+        if (counter < 10) {
+            counter++;
+            String a="Ερώτηση "+counter+" από 10";
+            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
 
+            i.putExtra("number",a);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+            DecimalFormat df= new DecimalFormat("##.#");
+            DecimalFormat df2= new DecimalFormat("###");
+            float tries2  = i.getIntExtra("tries",tries);
+            int qs=10;
+            int perc=100;
+            float percentage = (qs/(tries2+qs))*perc;
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Ανεπιτυχείς προσπάθειες: "+df2.format(tries2)+ ", Ποσοστό Επιτυχίας: " +df.format(percentage)+"%");
+            alertDialogBuilder.setPositiveButton("Αρχική σελίδα",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Intent a = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(a);
 
+                        }
+                    });
 
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
 
-
-
-
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Play");
-        setSupportActionBar(toolbar);
-        Intent i=getIntent();
-        Log.i(TAG, "onStart: ");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Display display = ((WindowManager)
-                getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-        Point screenSize = new Point();
-        Log.i(TAG, "onCreateOptionsMenu: ");
-        display.getRealSize(screenSize);
-        if (screenSize.x < screenSize.y) // x είναι το πλάτος,  y είναι το ύψος
-        {
-            getMenuInflater().inflate(R.menu.main_menu, menu); // διογκώνει το μενού
-            return true;
-        } else
-            return false;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
