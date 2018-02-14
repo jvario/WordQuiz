@@ -34,7 +34,10 @@ public class PlayActivity extends AppCompatActivity {
     private Button check_btn;
     private static int counter = 1;
     private static int tries=0;
+    static int j=0;
+
     private Handler handler;
+    private String [] easy_words= {"dog","cat","ball","sport","life","Apple","Bannana","Doll","Drone","luck"};
 
 
     @Override
@@ -42,9 +45,9 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         loadActivity();
+
+
     }
-
-
 
 
 
@@ -57,6 +60,9 @@ public class PlayActivity extends AppCompatActivity {
         questionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
         Write_EditText = (EditText) findViewById(R.id.Write_EditText);
         check_btn = (Button) findViewById(R.id.check_btn);
+        handler = new Handler();
+
+
 
 
 
@@ -75,10 +81,12 @@ public class PlayActivity extends AppCompatActivity {
             questionNumberTextView.setText(q_number);
         }
 
-        final StringBuilder sb1 = new StringBuilder("cat");
-        final StringBuilder sb = new StringBuilder("cat");
-        shuffle(sb);
-        wordTxtView.setText(sb);
+
+        Random r = new Random();
+        String  word = shuffle( r, easy_words[j] );
+        wordTxtView.setText(word);
+
+
 
 
         if (Write_EditText.getText().toString().trim().length() == 0) {
@@ -93,7 +101,7 @@ public class PlayActivity extends AppCompatActivity {
 
 
                 final String answer = Write_EditText.getText().toString();
-                if (sb1.equals(answer)) {
+                if (easy_words[j].equals(answer)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
                     toast.show();
                     handler.postDelayed(
@@ -158,14 +166,20 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-    public static void shuffle(StringBuilder sb) {
-        Random rand = new Random();
-        for (int i = sb.length() - 1; i > 1; i--) {
-            int swapWith = rand.nextInt(i);
-            char tmp = sb.charAt(swapWith);
-            sb.setCharAt(swapWith, sb.charAt(i));
-            sb.setCharAt(i, tmp);
+    public static String shuffle(Random random, String inputString )
+    {
+        // Convert your string into a simple char array:
+        char a[] = inputString.toCharArray();
+
+        // Scramble the letters using the standard Fisher-Yates shuffle,
+        for( int i=0 ; i<a.length ; i++ )
+        {
+            int j = random.nextInt(a.length);
+            // Swap letters
+            char temp = a[i]; a[i] = a[j];  a[j] = temp;
         }
+
+        return new String( a );
     }
 
 
@@ -205,13 +219,18 @@ public class PlayActivity extends AppCompatActivity {
 
     private void loadnext() {
         if (counter < 10) {
-            counter++;
-            String a="Ερώτηση "+counter+" από 10";
-            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
 
-            i.putExtra("number",a);
+                counter++;
+                String a = "Ερώτηση " + counter + " από 10";
+                Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+                Random r = new Random();
+               String  word = shuffle( r, easy_words[j] );
+               wordTxtView.setText(word);
+                j++;
+            i.putExtra("number", a);
             startActivity(i);
-        } else {
+        }
+         else {
             Intent i = new Intent(getApplicationContext(), PlayActivity.class);
             DecimalFormat df= new DecimalFormat("##.#");
             DecimalFormat df2= new DecimalFormat("###");
