@@ -43,27 +43,19 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
+        setContentView(R.layout.activity_play);  //syndesh kwdika me antistoixo activity
         loadActivity();
 
 
     }
 
 
-
-
-
-
-
     private  void loadActivity() {
-        wordTxtView = (TextView) findViewById(R.id.wordTxtView);
+        wordTxtView = (TextView) findViewById(R.id.wordTxtView);  //syndesh user interface me kwdika
         questionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
         Write_EditText = (EditText) findViewById(R.id.Write_EditText);
         check_btn = (Button) findViewById(R.id.check_btn);
         handler = new Handler();
-
-
-
 
 
 
@@ -85,7 +77,6 @@ public class PlayActivity extends AppCompatActivity {
         Random r = new Random();
         String  word = shuffle( r, easy_words[j] );
         wordTxtView.setText(word);
-
 
 
 
@@ -152,20 +143,6 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static String shuffle(Random random, String inputString )
     {
         // Convert your string into a simple char array:
@@ -211,10 +188,6 @@ public class PlayActivity extends AppCompatActivity {
                 return false;
 
         }
-
-
-
-
 
 
     private void loadnext() {
