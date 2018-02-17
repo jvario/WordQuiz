@@ -34,10 +34,12 @@ public class PlayActivity extends AppCompatActivity {
     private Button check_btn;
     private static int counter = 1;
     private static int tries=0;
-    static int j=0;
+    static int j=0,l=0,m=0;
 
     private Handler handler;
-    private String [] easy_words= {"dog","cat","ball","sport","life","Apple","Bannana","Doll","Drone","luck"};
+    private String [] easy_words= {"dog","cat","ball","bee","life","apple","queen","doll","pig","zebra"};
+    private String [] med_words= {"dolphin","octapus","jelly","umbrella","giraffe","ice-cream","snake","xylophone","vase","kite"};
+    private String [] hard_words= {"manager","football","glory","saviour","crossword","application","android","custom","create","android"};
 
 
     @Override
@@ -56,7 +58,7 @@ public class PlayActivity extends AppCompatActivity {
         Write_EditText = (EditText) findViewById(R.id.Write_EditText);
         check_btn = (Button) findViewById(R.id.check_btn);
         handler = new Handler();
-
+        Random r = new Random();
 
 
         shakeAnimation = AnimationUtils.loadAnimation(this,
@@ -68,16 +70,28 @@ public class PlayActivity extends AppCompatActivity {
         questionNumberTextView.setText("Ερώτηση 1 από 10");
         Intent i = getIntent();
         final String q_number = i.getStringExtra("number");
+        final String level = i.getStringExtra("key");
         if (counter > 1) {
 
             questionNumberTextView.setText(q_number);
         }
 
+switch(level) {
 
-        Random r = new Random();
-        String  word = shuffle( r, easy_words[j] );
+    case "easy":
+
+        String word = shuffle(r, easy_words[j]);
         wordTxtView.setText(word);
-
+        break;
+    case "medium":
+        word = shuffle(r, med_words[l]);
+        wordTxtView.setText(word);
+        break;
+    case "hard":
+        word = shuffle(r, hard_words[m]);
+        wordTxtView.setText(word);
+        break;
+}
 
 
         if (Write_EditText.getText().toString().trim().length() == 0) {
@@ -92,35 +106,114 @@ public class PlayActivity extends AppCompatActivity {
 
 
                 final String answer = Write_EditText.getText().toString();
-                if (easy_words[j].equals(answer)) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
-                    toast.show();
-                    handler.postDelayed(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    loadnext();
 
-                                }
-                            }, 1000);
-                    Log.i(TAG, "onClick: ");
 
-                } else if (Write_EditText.getText().toString().length() == 0) {
-                    Write_EditText.setError("Required");
-                } else {
-                    check_btn.startAnimation(shakeAnimation);
-                    Toast toast = Toast.makeText(getApplicationContext(), "Προσπάθησε ξανά", Toast.LENGTH_SHORT);
-                    toast.show();
-                    tries++;
-                    Intent i = new Intent(getApplicationContext(), PlayActivity.class);
-                    i.putExtra("tries", tries);
-                    Log.i(TAG, "onClick: ");
+                switch (level) {
+
+                    case "easy":
+
+
+                        if (easy_words[j].equals(answer)) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
+                            toast.show();
+                            handler.postDelayed(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadnext();
+
+                                        }
+                                    }, 1000);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        } else if (Write_EditText.getText().toString().length() == 0) {
+                            Write_EditText.setError("Required");
+                            break;
+                        } else {
+                            check_btn.startAnimation(shakeAnimation);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Προσπάθησε ξανά", Toast.LENGTH_SHORT);
+                            toast.show();
+                            tries++;
+                            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+                            i.putExtra("tries", tries);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        }
+
+                    case "medium":
+
+
+                        if (med_words[l].equals(answer)) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
+                            toast.show();
+                            handler.postDelayed(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadnext();
+
+                                        }
+                                    }, 1000);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        } else if (Write_EditText.getText().toString().length() == 0) {
+                            Write_EditText.setError("Required");
+                            break;
+                        } else {
+                            check_btn.startAnimation(shakeAnimation);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Προσπάθησε ξανά", Toast.LENGTH_SHORT);
+                            toast.show();
+                            tries++;
+                            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+                            i.putExtra("tries", tries);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        }
+
+                    case "hard":
+
+
+                        if (hard_words[m].equals(answer)) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Μπράβο!!!", Toast.LENGTH_SHORT);
+                            toast.show();
+                            handler.postDelayed(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadnext();
+
+                                        }
+                                    }, 1000);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        } else if (Write_EditText.getText().toString().length() == 0) {
+                            Write_EditText.setError("Required");
+                            break;
+                        } else {
+                            check_btn.startAnimation(shakeAnimation);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Προσπάθησε ξανά", Toast.LENGTH_SHORT);
+                            toast.show();
+                            tries++;
+                            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+                            i.putExtra("tries", tries);
+                            Log.i(TAG, "onClick: ");
+                            break;
+
+                        }
+
 
                 }
 
-
             }
-        });
+
+                });
+
+
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -135,12 +228,18 @@ public class PlayActivity extends AppCompatActivity {
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
-    else {
-        Toast toast = Toast.makeText(getApplicationContext(), "Γίνετε Επανεκκίνηση του quiz...", Toast.LENGTH_SHORT);
-        toast.show();
-        loadActivity();
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Γίνετε Επανεκκίνηση του quiz...", Toast.LENGTH_SHORT);
+            toast.show();
+            loadActivity();
+        }
+
     }
-    }
+
+
+
+
+
 
 
     public static String shuffle(Random random, String inputString )
@@ -193,17 +292,35 @@ public class PlayActivity extends AppCompatActivity {
     private void loadnext() {
         if (counter < 10) {
 
-                counter++;
-                String a = "Ερώτηση " + counter + " από 10";
-                Intent i = new Intent(getApplicationContext(), PlayActivity.class);
-                Random r = new Random();
-               String  word = shuffle( r, easy_words[j] );
-               wordTxtView.setText(word);
-                j++;
+            counter++;
+            String a = "Ερώτηση " + counter + " από 10";
+            Intent i = new Intent(getApplicationContext(), PlayActivity.class);
+            Random r = new Random();
+            Intent k = new Intent(getApplicationContext(), ChoiceActivity.class);
+            k = getIntent();
+            final String level = k.getStringExtra("key");
+
+            switch(level) {
+
+                case "easy":
+
+                    j++;
+                    break;
+                case "medium":
+                    l++;
+                    break;
+                case "hard":
+                    m++;
+                    break;
+            }
+
+
+            i.putExtra("key", level);
             i.putExtra("number", a);
             startActivity(i);
         }
          else {
+
             Intent i = new Intent(getApplicationContext(), PlayActivity.class);
             DecimalFormat df= new DecimalFormat("##.#");
             DecimalFormat df2= new DecimalFormat("###");
@@ -217,6 +334,10 @@ public class PlayActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
+                            counter=1;
+                            j=0;
+                            l=0;
+                            m=0;
                             Intent a = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(a);
 

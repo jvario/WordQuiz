@@ -25,7 +25,7 @@
 
 
 
-
+        <activity android:name=".ChoiceActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".PlayActivity"></activity>
