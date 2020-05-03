@@ -6,6 +6,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 ```
+minSdkVersion 19
+targetSdkVersion 26  
+```
+
+```
 compile 'com.android.support:support-v4:24.2.1'
 compile 'com.android.support:design:24.2.1'
 compile 'com.android.support:appcompat-v7:24.2.1'
