@@ -14,7 +14,7 @@ compile 'com.android.support:appcompat-v7:24.2.1'
 
 ## Authors
 
-* **Giannis Variozidis** - *Initial work* - [jvario](https://github.com/jvario)
+* **Giannis Variozidis** & **vivipap**- *Initial work* - [jvario](https://github.com/jvario) & [vivipap](https://github.com/vivipap)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
